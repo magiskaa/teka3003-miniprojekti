@@ -13,5 +13,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Kopioidaan ohjelma konttiin
 COPY main.py .
 
+# Tehdään datadirectory tietokannalle
+RUN mkdir -p data
+
 # Määritellään käynnistyskomento
 CMD ["python", "main.py"]
