@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Kopioidaan ohjelma konttiin
-COPY main.py .
+COPY ./src/ .
 
 # Tehdään datadirectory tietokannalle
 RUN mkdir -p data
