@@ -12,9 +12,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Kopioidaan ohjelma konttiin
 COPY ./src/ .
+COPY entrypoint.sh .
 
 # Tehdään datadirectory tietokannalle
-RUN mkdir -p data
+#RUN mkdir -p data
+
+# Tehdään testiraporteille directory
+#RUN mkdir -p reports
+
+# Tehdään entrypointin valintaskriptistä ajettava
+RUN chmod +x entrypoint.sh
 
 # Määritellään käynnistyskomento
-CMD ["python", "main.py"]
+ENTRYPOINT ["./entrypoint.sh"]
