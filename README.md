@@ -6,14 +6,18 @@
 - pylintin mukainen koodityyli.
 
 ## Ohjeet projektin käyttöön
-0. Cloonaa/pullaa repository
+### 0. Cloonaa/pullaa repository
 
-1. Lataa ja/tai käynnistä docker
+### 1. Lataa ja/tai käynnistä docker
 
-2. Mene komentorivillä projektin juureen (hakemisto jossa run.sh ja run.bat)
+### 2. Mene komentorivillä projektin juureen (hakemisto jossa run.sh ja run.bat)
 
-3. Riippuen mitä haluat tehdä, aja jokin seuraavista:
-HUOM! Windows: run.bat, MacOS/Linux: ./run.sh
+### 3. Riippuen mitä haluat tehdä, aja jokin seuraavista:
+!HUOM! 
+
+Windows: run.bat 
+
+MacOS/Linux: ./run.sh
 
 Aja ohjelma:
 ```bash
@@ -37,9 +41,9 @@ exit
 ```
 Kontti sulkeutuu automaattisesti, kun ohjelman suoritus lakkaa.
 
-!!HUOM!!
+### !!HUOM!!
 Windows koneella käytä Komentokehotetta (CMD) tai PowerShelliä. 
 Esim Git Bash rikkoo polut dockerin kanssa, eikä tietokanta ja testien tulokset tallennu oikein.
 
-4. Riippuvuudet
+### 4. Riippuvuudet
 Projektin riippuvuudet asentuvat automaattisesti Dockerin toimesta. Lisää vain tarvitsemasi kirjasto requirements.txt tiedostoon, joka sijaitsee projektin juuressa.
