@@ -1,2 +1,5 @@
-# Tietokannan foldeeri
-data/
+# Tietokannan data folderi
+data*/
+
+# Testien tulos folderi
+reports*/

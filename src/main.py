@@ -1,11 +1,12 @@
 import sqlite3
 
-# Connect to a database file (will create if it doesn't exist)
-conn = sqlite3.connect("data/tietokanta.sqlite")
-cursor = conn.cursor()
+if __name__ == "__main__":
+    # Luo tietokannan, Tee tämä app luokassa
+    conn = sqlite3.connect("data/tietokanta.sqlite")
+    cursor = conn.cursor()
 
-# Example: create table
-cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)")
-conn.commit()
-
-print("hello world")
+    # Esimerkkipöytä, myös app luokassa ja oikeilla jutuilla.
+    cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)")
+    conn.commit()
+    
+    print("Hello world")
