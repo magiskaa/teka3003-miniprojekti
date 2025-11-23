@@ -9,7 +9,7 @@ class App:
         db.row_factory = sqlite3.Row
         cursor = db.cursor()
 
-        cursor.execute(""" 
+        cursor.execute("""
             CREATE TABLE IF NOT EXISTS 
             citations (
                 cite_key TEXT UNIQUE PRIMARY KEY,
@@ -42,7 +42,7 @@ class App:
 
                 # Tietokantaan lisäys tässä vai Lisaa-luokassa?
                 # Esim.
-                # cursor.execute(""" 
+                # cursor.execute("""
                 #     INSERT INTO citations
                 #     VALUES (?,?,?,?)
                 # """, ("UE73N", "Matti Meikäläinen", "Matin Tarinat", 2012))

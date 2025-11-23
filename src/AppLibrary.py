@@ -6,8 +6,8 @@ class AppLibrary:
         self._io = IOStub()
         self._app = App(self._io)
 
-    def input(self, input):
-        self._io.add_input(input)
+    def input(self, text):
+        self._io.add_input(text)
 
     def output_should_contain(self, text):
         for output in self._io.outputs:

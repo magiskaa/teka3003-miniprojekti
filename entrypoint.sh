@@ -7,6 +7,10 @@ if [ "$1" = "test" ]; then
     echo "Ajetaan Robot Framework testit..."
     shift  # Poistaa argumentin "test"
     robot --console verbose --outputdir /app/reports tests/ "$@"  # loput argumentit robotille
+elif [ "$1" = "pylint" ]; then
+    echo "Ajetaan pylint tarkistus..."
+    shift  # Poistaa argumentin "pylint"
+    pylint .
 elif  [ "$1" = "shell" ]; then
     echo "Avataan shell ympäristö konttiin..."
     shift  # Poistaa argumentin "shell"
