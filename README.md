@@ -1,5 +1,5 @@
 # teka3003-miniprojekti
-[Backlog](https://github.com/users/magiskaa/projects/1)
+[Backlog](https://docs.google.com/spreadsheets/d/1iG8tZJiLOmtiUZvNDI_r38IGDxe9mPEwLc3JRLR8H6M/edit?usp=sharing)
 
 ## Definition of done
 - Testikattavuus kohtuullinen.
