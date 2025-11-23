@@ -1,5 +1,6 @@
 # teka3003-miniprojekti
 [Backlog](https://docs.google.com/spreadsheets/d/1iG8tZJiLOmtiUZvNDI_r38IGDxe9mPEwLc3JRLR8H6M/edit?usp=sharing)
+
 [![CI](https://github.com/magiskaa/teka3003-miniprojekti/actions/workflows/main.yml/badge.svg)](https://github.com/magiskaa/teka3003-miniprojekti/actions/workflows/main.yml)
 
 ## Definition of done
