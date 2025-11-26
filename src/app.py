@@ -1,5 +1,4 @@
 import sqlite3
-from lisaa import Lisaa
 
 class App:
     def __init__(self, io):
@@ -33,12 +32,15 @@ class App:
                 break
 
             if komento.startswith("lisaa"):
-                kom, arg = komento.split(" ")
+                parts = komento.split(" ")
+                kom = parts[0]
+                arg = parts[1] if len(parts) > 1 else ""
+
                 self.io.write(f"\nKomento: {kom}")
                 self.io.write(f"Argumentti: {arg}")
 
-                # Esim.
-                # lisaa = Lisaa(kom, arg, db)
-                # lisaa.run() -> kysyy käyttäjältä author, title, year...
+                from commands.lisaa import Lisaa
+                lisaa = Lisaa(kom, arg, db, self.io)
+                lisaa.run()
 
         db.close()
