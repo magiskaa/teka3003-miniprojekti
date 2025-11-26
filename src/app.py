@@ -1,4 +1,5 @@
 import sqlite3
+from commands.lisaa import Lisaa
 
 class App:
     def __init__(self, io):
@@ -15,7 +16,9 @@ class App:
                 cite_key TEXT UNIQUE PRIMARY KEY,
                 author TEXT,
                 title TEXT,
-                year INTEGER
+                journal TEXT,
+                year INTEGER,
+                doi TEXT UNIQUE
             )
         """)
         db.commit()
@@ -33,14 +36,9 @@ class App:
 
             if komento.startswith("lisaa"):
                 parts = komento.split(" ")
-                kom = parts[0]
                 arg = parts[1] if len(parts) > 1 else ""
 
-                self.io.write(f"\nKomento: {kom}")
-                self.io.write(f"Argumentti: {arg}")
-
-                from commands.lisaa import Lisaa
-                lisaa = Lisaa(kom, arg, db, self.io)
+                lisaa = Lisaa(arg, db, self.io)
                 lisaa.run()
 
         db.close()
