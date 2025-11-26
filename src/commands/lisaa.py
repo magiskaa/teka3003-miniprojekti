@@ -1,3 +1,4 @@
+import re
 class Lisaa:
     def __init__(self, arg, db, io):
         self.arg = arg
@@ -11,6 +12,10 @@ class Lisaa:
 
         if self.arg == "article":
             author = self.io.read("Author(s): ")
+            author_validi = self.validate_author(author)
+            while author_validi:
+                author = self.io.read("Author(s): ")
+                author_validi = self.validate_author(author)
             title = self.io.read("Title: ")
             journal = self.io.read("Journal: ")
             year = self.io.read("Year: ")
@@ -18,3 +23,8 @@ class Lisaa:
 
             self.io.write("\nArticle citation added")
 
+    def validate_author(self, text):
+        if not re.match('^[a-zA-ZäöåÄÖÅ]+$', text):
+            self.io.write("Ei validi nimi tekijälle")
+            return True
+        return False
