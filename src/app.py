@@ -1,4 +1,5 @@
 import sqlite3
+from lisaa import Lisaa
 
 class App:
     def __init__(self, io):
@@ -39,13 +40,5 @@ class App:
                 # Esim.
                 # lisaa = Lisaa(kom, arg, db)
                 # lisaa.run() -> kysyy käyttäjältä author, title, year...
-
-                # Tietokantaan lisäys tässä vai Lisaa-luokassa?
-                # Esim.
-                # cursor.execute("""
-                #     INSERT INTO citations
-                #     VALUES (?,?,?,?)
-                # """, ("UE73N", "Matti Meikäläinen", "Matin Tarinat", 2012))
-                # db.commit()
 
         db.close()
