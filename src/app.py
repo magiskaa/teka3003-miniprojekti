@@ -2,17 +2,18 @@ import sqlite3
 from commands.lisaa import Lisaa
 
 class App:
-    def __init__(self, io):
+    def __init__(self, io, db_name="data/tietokanta.sqlite"):
         self.io = io
+        self.db_name = db_name
 
     def connect_db(self):
-        db = sqlite3.connect("data/tietokanta.sqlite")
+        db = sqlite3.connect(self.db_name)
         db.row_factory = sqlite3.Row
         cursor = db.cursor()
 
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS 
-            citations (
+            articles (
                 cite_key TEXT UNIQUE PRIMARY KEY,
                 author TEXT,
                 title TEXT,
@@ -21,15 +22,40 @@ class App:
                 doi TEXT UNIQUE
             )
         """)
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS 
+            inproceedings (
+                cite_key TEXT UNIQUE PRIMARY KEY,
+                author TEXT,
+                title TEXT,
+                booktitle TEXT,
+                year INTEGER,
+                doi TEXT UNIQUE
+            )
+        """)
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS 
+            books (
+                cite_key TEXT UNIQUE PRIMARY KEY,
+                author TEXT,
+                title TEXT,
+                year INTEGER,
+                publisher TEXT,
+                doi TEXT UNIQUE
+            )
+        """)
         db.commit()
 
-        return db, cursor
+        return db
 
     def run(self):
-        db, cursor = self.connect_db()
+        db = self.connect_db()
 
         while True:
-            komento = self.io.read("\nKirjoita komento (esim. lisaa article): ")
+            self.io.write("\n\nKirjoita komento ja sen perään referenssityyppi.\n"
+                          "\nKäytettävissä olevat komennot: lisaa."
+                          "\nKäytettävissä olevat referenssityypit: article, inproceedings, book\n")
+            komento = self.io.read("> ")
 
             if not komento:
                 break

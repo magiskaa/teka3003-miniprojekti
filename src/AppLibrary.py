@@ -4,7 +4,7 @@ from console_io_stub import IOStub
 class AppLibrary:
     def __init__(self):
         self._io = IOStub()
-        self._app = App(self._io)
+        self._app = App(self._io, db_name=":memory:")
 
     def input(self, text):
         self._io.add_input(text)

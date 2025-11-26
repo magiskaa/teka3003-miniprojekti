@@ -2,8 +2,13 @@
 Library  ../AppLibrary.py
 
 *** Test Cases ***
-Add citation command works
+Add article citation works
     Input  lisaa article
+    Input  key
+    Input  author
+    Input  title
+    Input  journal
+    Input  year
+    Input  doi
     Run Application
-    Output Should Contain  Komento: lisaa
-    Output Should Contain  Argumentti: article
+    Output Should Contain  Article citation added

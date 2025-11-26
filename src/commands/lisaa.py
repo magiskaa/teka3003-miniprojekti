@@ -7,8 +7,6 @@ class Lisaa:
 
     def run(self):
         # Tietojen kysyminen
-        self.io.write("\n=== Add reference ===")
-
         cite_key = self.io.read("Cite (e.g. VPL11): ")
 
         if self.arg == "article":
@@ -17,4 +15,6 @@ class Lisaa:
             journal = self.io.read("Journal: ")
             year = self.io.read("Year: ")
             doi = self.io.read("DOI: ")
+
+            self.io.write("\nArticle citation added")
 
