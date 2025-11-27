@@ -1,4 +1,5 @@
 import re
+import sqlite3
 class Lisaa:
     def __init__(self, arg, db, io):
         self.arg = arg
@@ -9,7 +10,7 @@ class Lisaa:
     def run(self):
         # Tietojen kysyminen
         cite_key = self.io.read("Cite (e.g. VPL11): ")
-
+        
         if self.arg == "article":
             author = self._valid("Author(s): ", self.is_valid_author, "Tekijä(t) ei kelpaa")
             title = self._valid("Title: ", self.is_valid_title, "Otsikko ei kelpaa")
@@ -17,7 +18,19 @@ class Lisaa:
             year = self._valid("Year: ", self.is_valid_year, "Vuosi ei kelpaa")
             doi = self._valid("DOI: ", self.is_valid_doi, "DOI ei kelpaa")
 
-            self.io.write("\nArticle citation added")
+            try:
+                doi_value = doi.strip() if doi and doi.strip() else None
+                self.cursor.execute(
+                    """
+                    INSERT INTO articles (cite_key, author, title, journal, year, doi)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    """,
+                    (cite_key, author, title, journal, int(year), doi_value)
+                )
+                self.db.commit()
+                self.io.write("\nArticle citation added")
+            except sqlite3.IntegrityError as e:
+                self.io.write(f"Virhe tallennettaessa: {e}")
 
     def _valid(self, syote, validator, error_message):
         # Yleinen valid tarkistin
