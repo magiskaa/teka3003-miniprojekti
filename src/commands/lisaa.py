@@ -2,7 +2,7 @@ import re
 class Lisaa:
     def __init__(self, arg, db, io):
         self.arg = arg
-        self.db = db   
+        self.db = db
         self.io = io
         self.cursor = db.cursor()
 

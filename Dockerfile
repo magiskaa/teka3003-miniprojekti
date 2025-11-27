@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Kopioidaan ohjelma konttiin
 COPY ./src/ .
 COPY entrypoint.sh .
+COPY .pylintrc .
 
 # Tehdään datadirectory tietokannalle
 #RUN mkdir -p data
