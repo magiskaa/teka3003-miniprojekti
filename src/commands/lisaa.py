@@ -9,14 +9,14 @@ class Lisaa:
 
     def run(self):
         # Tietojen kysyminen
-        cite_key = self.io.read("Cite (e.g. VPL11): ")
-        
+        cite_key = self.io.read("\nCite key (e.g. VPL11): ")
+
         if self.arg == "article":
-            author = self._valid("Author(s): ", self.is_valid_author, "Tekijä(t) ei kelpaa")
-            title = self._valid("Title: ", self.is_valid_title, "Otsikko ei kelpaa")
-            journal = self._valid("Journal: ", self.is_valid_journal, "Julkaisun nimi ei kelpaa")
-            year = self._valid("Year: ", self.is_valid_year, "Vuosi ei kelpaa")
-            doi = self._valid("DOI: ", self.is_valid_doi, "DOI ei kelpaa")
+            author = self._valid("\nAuthor(s): ", self.is_valid_author, "Tekijä(t) ei kelpaa")
+            title = self._valid("\nTitle: ", self.is_valid_title, "Otsikko ei kelpaa")
+            journal = self._valid("\nJournal: ", self.is_valid_journal, "Julkaisupaikka ei kelpaa")
+            year = self._valid("\nYear: ", self.is_valid_year, "Vuosi ei kelpaa")
+            doi = self._valid("\nDOI: ", self.is_valid_doi, "DOI ei kelpaa")
 
             try:
                 doi_value = doi.strip() if doi and doi.strip() else None
@@ -28,7 +28,10 @@ class Lisaa:
                     (cite_key, author, title, journal, int(year), doi_value)
                 )
                 self.db.commit()
-                self.io.write("\nArticle citation added")
+
+                print("\n\n------------------------------------------")
+                self.io.write("|     Artikkeli lisätty tietokantaan     |")
+                print("------------------------------------------")
             except sqlite3.IntegrityError as e:
                 self.io.write(f"Virhe tallennettaessa: {e}")
 

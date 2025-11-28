@@ -53,13 +53,10 @@ class App:
 
         while True:
             self.io.write("\n\nKirjoita komento ja sen perään referenssityyppi.\n"
-                          "\nKäytettävissä olevat komennot: lisaa."
+                          "\nKäytettävissä olevat komennot: lisaa"
                           "\nKäytettävissä olevat referenssityypit: article, inproceedings, book\n"
                           "\nSulje ohjelma : quit/exit")
             komento = self.io.read("> ")
-
-            if not komento:
-                break
 
             # Sulkukomento
             if komento in ("exit", "quit"):
