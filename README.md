@@ -47,5 +47,11 @@ Kontti sulkeutuu automaattisesti, kun ohjelman suoritus lakkaa.
 Windows koneella käytä Komentokehotetta (CMD) tai PowerShelliä. 
 Esim Git Bash rikkoo polut dockerin kanssa, eikä tietokanta ja testien tulokset tallennu oikein.
 
+Mikäli saat virheilmoituksen tyyliin "exec ./entrypoint.sh: no such file or directory" on ongelma kyseisen käynnistysscriptin rivinvaihdoista. Joskus windows kone sekottaa ne. Lokaali fixi on ajaa seuraava jossain unix shellissä:
+```bash
+dos2unix entrypoint.sh
+```
+
 ### 4. Riippuvuudet
 Projektin riippuvuudet asentuvat automaattisesti Dockerin toimesta. Lisää vain tarvitsemasi kirjasto requirements.txt tiedostoon, joka sijaitsee projektin juuressa.
+

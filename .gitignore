@@ -3,3 +3,5 @@ data*/
 
 # Testien tulos folderi
 reports*/
+
+__pycache__/
