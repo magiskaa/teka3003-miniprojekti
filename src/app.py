@@ -1,5 +1,6 @@
 import sqlite3
 from commands.lisaa import Lisaa
+from commands.hae import Hae
 
 class App:
     def __init__(self, io, db_name="data/tietokanta.sqlite"):
@@ -53,7 +54,7 @@ class App:
 
         while True:
             self.io.write("\n\nKirjoita komento ja sen perään referenssityyppi.\n"
-                          "\nKäytettävissä olevat komennot: lisaa"
+                          "\nKäytettävissä olevat komennot: lisaa, hae"
                           "\nKäytettävissä olevat referenssityypit: article, inproceedings, book\n"
                           "\nSulje ohjelma : quit/exit")
             komento = self.io.read("> ")
@@ -63,11 +64,20 @@ class App:
                 self.io.write("Ohjelma suljetaan...\n")
                 break
 
-            if komento.startswith("lisaa"):
+            elif komento.startswith("lisaa"):
                 parts = komento.split(" ")
                 arg = parts[1] if len(parts) > 1 else ""
 
                 lisaa = Lisaa(arg, db, self.io)
                 lisaa.run()
+
+            elif komento.startswith("hae"):
+                parts = komento.split(" ")
+                hakuattr = parts[1] if len(parts) > 2 else None
+                hakusana = parts[2] if len(parts) > 2 else ""
+
+                haku = Hae(db, self.io, hakuattr, hakusana)
+                haku.run()
+                haku.tulosta()
 
         db.close()
