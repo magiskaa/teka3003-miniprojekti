@@ -25,7 +25,7 @@ class Hae:
         if self.attribuutti is None:
             query = "SELECT * FROM {table}"
         elif self.tarkista_hakuattribuutti() and self.hakusana != "":
-            query = "SELECT * FROM {table} WHERE {attribuutti} = {hakuehto}"
+            query = "SELECT * FROM {table} WHERE {attribuutti} = '{hakuehto}'"
         else:
             self.tulokset = ["Virheellinen hakuattribuutti tai puuttuva hakusana!\n"]
             return
@@ -37,7 +37,7 @@ class Hae:
                     else:
                         self.cursor.execute(query.format(
                             table=table, 
-                            attribuutti=self.attribuutti,
+                            attribuutti=self.hakuattribuutit[self.attribuutti.lower()],
                             hakuehto=self.hakusana
                         ))
 
@@ -55,17 +55,24 @@ class Hae:
         if not self.tulokset:
             self.tulokset = ["Hakuehdoilla ei löytynyt yhtään tulosta!"]
     
-    # TODO: Lisää kaikki tarvittavat hakuattribuutit.
+    # Lisää tarvittavat hakuattribuutit.
     def alusta_set(self):
-        attribuutit = set()
-        attribuutit.add("year")
-        attribuutit.add("tag")
-        return attribuutit
-
+        return {
+            "year": "year",
+            "vuosi": "year",
+            "author": "author",
+            "tekijä": "author",
+            "journal": "journal",
+            "julkaisu": "journal",
+            "title": "title",
+            "otsikko": "title",
+            "tag": "tag",
+            "cite": "cite_key",
+            "doi": "doi_value"
+        }
 
     def tarkista_hakuattribuutti(self):
         return self.attribuutti.replace(" ", "").lower() in self.hakuattribuutit
-
 
     # TODO: tee kauniimpi tulostus. Tällä voi katsoa toimiiko.    
     def tulosta(self):
