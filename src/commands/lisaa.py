@@ -23,7 +23,7 @@ class Lisaa:
                 doi_value = doi.strip() if doi and doi.strip() else None
                 self.cursor.execute(
                     """
-                    INSERT INTO articles (cite_key, author, title, journal, year, doi, tag)
+                    INSERT INTO article (cite_key, author, title, journal, year, doi, tag)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
                     (cite_key, author, title, journal, int(year), doi_value, tag)

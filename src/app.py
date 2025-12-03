@@ -1,6 +1,7 @@
 import sqlite3
 from commands.lisaa import Lisaa
 from commands.hae import Hae
+from commands.generoi import Generoi
 
 class App:
     def __init__(self, io, db_name="data/tietokanta.sqlite"):
@@ -14,7 +15,7 @@ class App:
 
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS 
-            articles (
+            article (
                 cite_key TEXT UNIQUE PRIMARY KEY,
                 author TEXT,
                 title TEXT,
@@ -38,7 +39,7 @@ class App:
         """)
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS 
-            books (
+            book (
                 cite_key TEXT UNIQUE PRIMARY KEY,
                 author TEXT,
                 title TEXT,
@@ -57,7 +58,7 @@ class App:
 
         while True:
             self.io.write("\n\nKirjoita komento ja sen perään referenssityyppi.\n"
-                          "\nKäytettävissä olevat komennot: lisaa, hae"
+                          "\nKäytettävissä olevat komennot: lisaa, hae, generoi"
                           "\nKäytettävissä olevat referenssityypit: article, inproceedings, book\n"
                           "\nSulje ohjelma : quit/exit")
             komento = self.io.read("> ")
@@ -82,5 +83,9 @@ class App:
                 haku = Hae(db, self.io, hakuattr, hakusana)
                 haku.run()
                 haku.tulosta()
+                
+            elif komento.startswith("generoi"):
+                generoi = Generoi(db, self.io)
+                generoi.run()
 
         db.close()

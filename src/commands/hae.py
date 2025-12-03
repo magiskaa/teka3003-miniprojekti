@@ -44,6 +44,9 @@ class Hae:
                     hakutulos = self.cursor.fetchall()
                     if hakutulos:
                         hakutulos = [dict(t) for t in hakutulos]
+                        #lisätään tuloksiin tieto mistä taulusta se on peräisin
+                        for r in hakutulos:
+                            r['table'] = table
                         self.tulokset.extend(hakutulos)
                 except Exception as e:
                     #self.io.write(e)
@@ -69,3 +72,5 @@ class Hae:
         for row in self.tulokset:
             self.io.write(str(row))
 
+    def hae_artikkelit(self):
+        return self.tulokset
