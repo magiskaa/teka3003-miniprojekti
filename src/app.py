@@ -59,7 +59,8 @@ class App:
         while True:
             self.io.write("\n\nKirjoita komento ja sen perään referenssityyppi.\n"
                           "\nKäytettävissä olevat komennot: lisaa, hae, generoi"
-                          "\nKäytettävissä olevat referenssityypit: article, inproceedings, book\n"
+                          "\nhae: hae <attribuutti> <hakusana> (esim. hae author Matti)"
+                          "\nlisaa: lisaa <referenssityyppi>  (esim. article, inproceedings, book)\n"
                           "\nSulje ohjelma : quit/exit")
             komento = self.io.read("> ")
 

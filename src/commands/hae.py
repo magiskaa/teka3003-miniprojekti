@@ -74,10 +74,22 @@ class Hae:
     def tarkista_hakuattribuutti(self):
         return self.attribuutti.replace(" ", "").lower() in self.hakuattribuutit
 
-    # TODO: tee kauniimpi tulostus. Tällä voi katsoa toimiiko.
+    # Tulostus
     def tulosta(self):
         for row in self.tulokset:
-            self.io.write(str(row))
+            if isinstance(row, dict):
+                self.io.write("\n------------------------------")
+                self.io.write(f"  Tyyppi:   {row.get('table','')}")
+                self.io.write(f"  Cite key: {row.get('cite_key','')}")
+                self.io.write(f"  Author:   {row.get('author','')}")
+                self.io.write(f"  Title:    {row.get('title','')}")
+                self.io.write(f"  Journal:  {row.get('journal','')}")
+                self.io.write(f"  Year:     {row.get('year','')}")
+                self.io.write(f"  DOI:      {row.get('doi','')}")
+                self.io.write(f"  Tag:      {row.get('tag','')}")
+                self.io.write("------------------------------\n")
+            else:
+                self.io.write(str(row))
 
     def hae_artikkelit(self):
         return self.tulokset
