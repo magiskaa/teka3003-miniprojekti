@@ -27,7 +27,7 @@ class AppLibrary:
             rows = cursor.fetchall()
             tables = [row['name'] for row in rows]
 
-            expected_tables = ['articles', 'inproceedings', 'books']
+            expected_tables = ['article', 'inproceedings', 'book']
             for table in expected_tables:
                 if table not in tables:
                     raise AssertionError(f"Taulu '{table}' puuttuu tietokannasta")

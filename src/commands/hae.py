@@ -31,30 +31,30 @@ class Hae:
             return
 
         for table in tables:
-                try:
-                    if self.attribuutti is None:
-                        self.cursor.execute(query.format(table=table))
-                    else:
-                        self.cursor.execute(query.format(
-                            table=table, 
-                            attribuutti=self.hakuattribuutit[self.attribuutti.lower()],
-                            hakuehto=self.hakusana
-                        ))
+            try:
+                if self.attribuutti is None:
+                    self.cursor.execute(query.format(table=table))
+                else:
+                    self.cursor.execute(query.format(
+                        table=table,
+                        attribuutti=self.hakuattribuutit[self.attribuutti.lower()],
+                        hakuehto=self.hakusana
+                    ))
 
-                    hakutulos = self.cursor.fetchall()
-                    if hakutulos:
-                        hakutulos = [dict(t) for t in hakutulos]
-                        #lisätään tuloksiin tieto mistä taulusta se on peräisin
-                        for r in hakutulos:
-                            r['table'] = table
-                        self.tulokset.extend(hakutulos)
-                except Exception as e:
-                    #self.io.write(e)
-                    pass
-        
+                hakutulos = self.cursor.fetchall()
+                if hakutulos:
+                    hakutulos = [dict(t) for t in hakutulos]
+                    #lisätään tuloksiin tieto mistä taulusta se on peräisin
+                    for r in hakutulos:
+                        r['table'] = table
+                    self.tulokset.extend(hakutulos)
+            except Exception as e:
+                #self.io.write(e)
+                pass
+
         if not self.tulokset:
             self.tulokset = ["Hakuehdoilla ei löytynyt yhtään tulosta!"]
-    
+
     # Lisää tarvittavat hakuattribuutit.
     def alusta_set(self):
         return {
@@ -74,7 +74,7 @@ class Hae:
     def tarkista_hakuattribuutti(self):
         return self.attribuutti.replace(" ", "").lower() in self.hakuattribuutit
 
-    # TODO: tee kauniimpi tulostus. Tällä voi katsoa toimiiko.    
+    # TODO: tee kauniimpi tulostus. Tällä voi katsoa toimiiko.
     def tulosta(self):
         for row in self.tulokset:
             self.io.write(str(row))

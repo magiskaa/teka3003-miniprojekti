@@ -10,6 +10,7 @@ Add article citation works
     Input  Iltalehti
     Input  2012
     Input  10.1234/5678
+    Input  tag
     Input  exit
     Run Application
     Output Should Contain  Artikkeli lisätty tietokantaan

@@ -68,7 +68,7 @@ class App:
                 self.io.write("Ohjelma suljetaan...\n")
                 break
 
-            elif komento.startswith("lisaa"):
+            if komento.startswith("lisaa"):
                 parts = komento.split(" ")
                 arg = parts[1] if len(parts) > 1 else ""
 
@@ -83,7 +83,7 @@ class App:
                 haku = Hae(db, self.io, hakuattr, hakusana)
                 haku.run()
                 haku.tulosta()
-                
+
             elif komento.startswith("generoi"):
                 generoi = Generoi(db, self.io)
                 generoi.run()

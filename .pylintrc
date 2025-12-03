@@ -1,9 +1,7 @@
 [MASTER]
-# Files or directories to be skipped. They should be base names, not paths.
 ignore=CVS,.git,__pycache__,data,tests
 
 [MESSAGES CONTROL]
-# Disable the message, report, category or checker with the given id(s).
 disable=
     C0114, ; missing-module-docstring
     C0115, ; missing-class-docstring
@@ -11,9 +9,9 @@ disable=
     R0903, ; too-few-public-methods
     C0103, ; invalid-name
     W0612, ; unused-variable
-    W0613  ; unused-argument
+    W0613, ; unused-argument
+    W0511, ; TODO-warning
+    W0718  ; broad-exception-caught
 
 [TYPECHECK]
-# List of members which are set dynamically and missed by pylint inference
-# system, and so shouldn't trigger E1101 when accessed.
 generated-members=sqlite3.*

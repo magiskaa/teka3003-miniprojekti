@@ -1,11 +1,11 @@
 from commands.hae import Hae
 
 class Generoi:
-    
+
     def __init__(self, db, io):
         self.db = db
         self.io = io
-    
+
     #TODO: Tää ei ota vielä huomioon sitä että eri tyyppisil lähteil on eri tietokentät
     def kirjoita_tiedostoon(self, tulokset):
         with open("lahteet.bib", "w", encoding="utf-8") as f:
@@ -23,16 +23,16 @@ class Generoi:
                 else:
                     # r on virheviesti merkkijonona
                     f.write(str(r) + "\n")
-        
-        
+
+
     def run(self):
         try:
             hae = Hae(self.db, self.io)
             hae.run()
             tulokset = hae.hae_artikkelit()
-                    
+
             self.kirjoita_tiedostoon(tulokset)
             print("Bibtex-tiedosto generoitu")
-        
-        except:
+
+        except Exception as e:
             print("Virhe tiedoston luomisessa")

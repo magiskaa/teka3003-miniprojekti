@@ -80,7 +80,7 @@ class Lisaa:
             return True
         pattern = r'^10\.\d{4,9}/[-._;()/:A-Z0-9]+$'
         return bool(re.match(pattern, text.strip(), re.IGNORECASE))
-    
+
     def is_valid_tag(self, text):
         # Tag voi olla tyhjä.
         if not text or not text.strip():
