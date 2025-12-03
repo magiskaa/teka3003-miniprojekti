@@ -6,7 +6,7 @@ class Generoi:
         self.db = db
         self.io = io
     
-            
+    #TODO: Tää ei ota vielä huomioon sitä että eri tyyppisil lähteil on eri tietokentät
     def kirjoita_tiedostoon(self, tulokset):
         with open("lahteet.bib", "w", encoding="utf-8") as f:
             for r in tulokset:
