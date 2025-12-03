@@ -19,6 +19,7 @@ class App:
                 author TEXT,
                 title TEXT,
                 journal TEXT,
+                tag TEXT,
                 year INTEGER,
                 doi TEXT UNIQUE
             )
@@ -30,6 +31,7 @@ class App:
                 author TEXT,
                 title TEXT,
                 booktitle TEXT,
+                tag TEXT,
                 year INTEGER,
                 doi TEXT UNIQUE
             )
@@ -42,6 +44,7 @@ class App:
                 title TEXT,
                 year INTEGER,
                 publisher TEXT,
+                tag TEXT,
                 doi TEXT UNIQUE
             )
         """)

@@ -56,6 +56,7 @@ class Hae:
     def alusta_set(self):
         attribuutit = set()
         attribuutit.add("year")
+        attribuutit.add("tag")
         return attribuutit
 
 

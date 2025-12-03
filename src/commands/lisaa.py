@@ -17,15 +17,16 @@ class Lisaa:
             journal = self._valid("\nJournal: ", self.is_valid_journal, "Julkaisupaikka ei kelpaa")
             year = self._valid("\nYear: ", self.is_valid_year, "Vuosi ei kelpaa")
             doi = self._valid("\nDOI: ", self.is_valid_doi, "DOI ei kelpaa")
+            tag = self._valid("\nTag: ", self.is_valid_tag, "Tag ei kelpaa")
 
             try:
                 doi_value = doi.strip() if doi and doi.strip() else None
                 self.cursor.execute(
                     """
-                    INSERT INTO articles (cite_key, author, title, journal, year, doi)
-                    VALUES (?, ?, ?, ?, ?, ?)
+                    INSERT INTO articles (cite_key, author, title, journal, year, doi, tag)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
-                    (cite_key, author, title, journal, int(year), doi_value)
+                    (cite_key, author, title, journal, int(year), doi_value, tag)
                 )
                 self.db.commit()
 
@@ -79,3 +80,10 @@ class Lisaa:
             return True
         pattern = r'^10\.\d{4,9}/[-._;()/:A-Z0-9]+$'
         return bool(re.match(pattern, text.strip(), re.IGNORECASE))
+    
+    def is_valid_tag(self, text):
+        # Tag voi olla tyhjä.
+        if not text or not text.strip():
+            return True
+        pattern = r'^[a-zA-ZäöåÄÖÅ0-9\-\s&.,\']+$'
+        return bool(re.match(pattern, text.strip()))
