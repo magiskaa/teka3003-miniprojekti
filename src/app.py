@@ -77,8 +77,8 @@ class App:
 
             elif komento.startswith("hae"):
                 parts = komento.split(" ")
-                hakuattr = parts[1] if len(parts) > 2 else None
-                hakusana = parts[2] if len(parts) > 2 else ""
+                hakuattr = parts[1] if len(parts) > 1 else None
+                hakusana = " ".join(parts[2:]) if len(parts) > 2 else ""
 
                 haku = Hae(db, self.io, hakuattr, hakusana)
                 haku.run()

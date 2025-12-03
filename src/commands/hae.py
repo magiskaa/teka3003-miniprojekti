@@ -25,7 +25,7 @@ class Hae:
         if self.attribuutti is None:
             query = "SELECT * FROM {table}"
         elif self.tarkista_hakuattribuutti() and self.hakusana != "":
-            query = "SELECT * FROM {table} WHERE {attribuutti} = '{hakuehto}'"
+            query = "SELECT * FROM {table} WHERE LOWER ({attribuutti}) LIKE LOWER ('%{hakuehto}%')"
         else:
             self.tulokset = ["Virheellinen hakuattribuutti tai puuttuva hakusana!\n"]
             return
@@ -68,7 +68,7 @@ class Hae:
             "otsikko": "title",
             "tag": "tag",
             "cite": "cite_key",
-            "doi": "doi_value"
+            "doi": "doi"
         }
 
     def tarkista_hakuattribuutti(self):
