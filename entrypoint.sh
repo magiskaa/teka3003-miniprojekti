@@ -2,6 +2,7 @@
 
 mkdir -p data
 mkdir -p reports
+mkdir -p output
 
 if [ "$1" = "test" ]; then
     echo "Ajetaan Robot Framework testit..."

@@ -1,6 +1,4 @@
 
-# Tee haku silleen, että run komennon perään tulee hakuattribuutti tai ei mitään.
-#   ei mitään palauttaa kaiken, attribuutin kanssa kysytään hakusanaa.
 class Hae:
 
     def __init__(self, db, io, attribuutti=None, hakusana=""):
@@ -12,9 +10,8 @@ class Hae:
         self.cursor = db.cursor()
         self.tulokset = []
 
-    # TODO: Testaa toimivuus tälle funktiolle stubejen avulla.
+    
     # TODO: Ehkä parempi tapa käsitellä virheet ja erikoistapausten tulostus.
-    # TODO: Ei vielä osaa toimia oikein jos syötetään vain hakuattribuutti.
     def run(self):
 
         # Haetaan kaikkien pöytien nimet

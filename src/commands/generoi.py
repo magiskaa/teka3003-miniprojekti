@@ -8,7 +8,7 @@ class Generoi:
 
     #TODO: Tää ei ota vielä huomioon sitä että eri tyyppisil lähteil on eri tietokentät
     def kirjoita_tiedostoon(self, tulokset):
-        with open("lahteet.bib", "w", encoding="utf-8") as f:
+        with open("output/lahteet.bib", "w", encoding="utf-8") as f:
             for r in tulokset:
                 if isinstance(r, dict):
                     # Muodostetaan BibTeX-tyyppinen merkintä
@@ -32,7 +32,7 @@ class Generoi:
             tulokset = hae.hae_artikkelit()
 
             self.kirjoita_tiedostoon(tulokset)
-            print("Bibtex-tiedosto generoitu")
+            self.io.write("Bibtex-tiedosto generoitu")
 
         except Exception as e:
-            print("Virhe tiedoston luomisessa")
+            self.io.write("Virhe tiedoston luomisessa")

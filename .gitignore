@@ -4,4 +4,7 @@ data*/
 # Testien tulos folderi
 reports*/
 
+# Bibtex tiedostokansio
+output/
+
 __pycache__/
