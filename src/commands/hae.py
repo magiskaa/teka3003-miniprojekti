@@ -10,7 +10,6 @@ class Hae:
         self.cursor = db.cursor()
         self.tulokset = []
 
-    
     # TODO: Ehkä parempi tapa käsitellä virheet ja erikoistapausten tulostus.
     def run(self):
 
