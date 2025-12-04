@@ -25,3 +25,7 @@ Mitä parannetaan seuraavaan sprinttiin?
 -
 
 Action Pointit (toimenpiteet)
+
+- Lisätään kommunikointia ja kerrotaan aina mitä työstetään sillä hetkellä.
+  Minimoidaan riski että työstetään samaa.
+- Ennakkovalmistautuminen seuraavaan sprint reviewiin. 
