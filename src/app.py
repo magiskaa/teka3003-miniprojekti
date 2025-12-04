@@ -57,7 +57,7 @@ class App:
         db = self.connect_db()
 
         while True:
-            self.io.write("\n\nKirjoita komento ja sen perään referenssityyppi.\n"
+            self.io.write("\n\nKirjoita komento ja sen perään argumentit.\n"
                           "\nKäytettävissä olevat komennot: lisaa, hae, generoi"
                           "\nhae: hae <attribuutti> <hakusana> (esim. hae author Matti)"
                           "\nlisaa: lisaa <referenssityyppi> (esim. article, inproceedings, book)\n"

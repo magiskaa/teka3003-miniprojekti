@@ -1,7 +1,13 @@
 # teka3003-miniprojekti
+
 [Backlog](https://docs.google.com/spreadsheets/d/1iG8tZJiLOmtiUZvNDI_r38IGDxe9mPEwLc3JRLR8H6M/edit?usp=sharing)
 
 [![CI](https://github.com/magiskaa/teka3003-miniprojekti/actions/workflows/main.yml/badge.svg)](https://github.com/magiskaa/teka3003-miniprojekti/actions/workflows/main.yml)
+
+## Sisältö
+- [Definition of done](#definition-of-done)
+- [Projektin käyttöohjeet](#ohjeet-projektin-käyttöön)
+- [Sovelluksen käyttöohjeet](#ohjeet-sovelluksen-käyttöön)
 
 ## Definition of done
 - Testikattavuus kohtuullinen.
@@ -55,3 +61,79 @@ dos2unix entrypoint.sh
 ### 4. Riippuvuudet
 Projektin riippuvuudet asentuvat automaattisesti Dockerin toimesta. Lisää vain tarvitsemasi kirjasto requirements.txt tiedostoon, joka sijaitsee projektin juuressa.
 
+## Ohjeet sovelluksen käyttöön
+
+### 1. Kirjoita komento ja sen perään argumentit.
+
+Käytettävissä olevat komennot: lisaa, hae, generoi, quit/exit.
+
+#### 1.1 Lisää-komento
+```bash
+lisaa <referenssityyppi>
+```
+Käytettävissä olevat referenssityypit: `article`, `inproceedings`, `book`.
+
+#### 1.2 Hae-komento
+```bash
+hae <attribuutti> <hakusana> 
+```
+Käytettävissä olevat attribuutit: `cite_key`, `author`, `title`,  `journal`, `tag`, `year`, `doi`.
+
+#### 1.3 Generoi-komento
+```bash
+generoi
+```
+Tekee BibTex-tiedoston host-koneelle.
+
+#### 1.4 Exit-komento
+```bash
+quit
+```
+tai
+```bash
+exit
+```
+Sulkee ohjelman.
+
+### 2. Esimerkki viitteen lisäämisestä
+
+Kun lisäät uuden viitteen (esim. artikkeli), ohjelma kysyy tarvittavat tiedot yksi kerrallaan.
+
+1. Kirjoita komento: `lisaa article`.
+2. Ohjelma kysyy `Cite key`: Anna lyhyt tunniste viitteelle (esim. VPL11).
+3. Ohjelma kysyy muut tiedot (Author, Title, Journal, Year, DOI, Tag).
+   - Jos tieto on vapaaehtoinen tai haluat jättää sen tyhjäksi (esim. Tag), paina vain Enter.
+   - Jos syöte on virheellinen (esim. vuosiluku väärässä muodossa), ohjelma pyytää syöttämään sen uudelleen.
+4. Kun kaikki tiedot on annettu onnistuneesti, ohjelma ilmoittaa: `Artikkeli lisätty tietokantaan`.
+
+### 3. Esimerkkejä viitteen hakemisesta
+
+Voit hakea viitteitä tietyn kentän (esim. tekijä tai vuosi) perusteella.
+
+**Haku tekijän nimellä:**
+Kirjoita komento: `hae author Matti`.
+Ohjelma listaa kaikki viitteet, joiden tekijä-kenttä sisältää sanan "Matti".
+
+**Haku vuosiluvulla:**
+Kirjoita komento: `hae year 2023`.
+Ohjelma listaa kaikki vuonna 2023 julkaistut viitteet.
+
+### 4. BibTeX-tiedoston generointi
+Voit luoda kaikista tietokannassa olevista viitteistä BibTeX-muotoisen tiedoston.
+
+1. Kirjoita komento: `generoi`.
+2. Ohjelma luo tiedoston `lahteet.bib` kansioon `output/`. 
+3. Jos tiedosto on luotu onnistuneesti, ohjelma ilmoittaa: `Bibtex-tiedosto generoitu`.
+
+Tiedosto sisältää viitteet seuraavassa muodossa:
+
+```bibtex
+@article{VPL11,
+  author={Virtanen, Pekka},
+  title={Uusi tutkimus},
+  journal={Tiede-lehti},
+  year={2023},
+  doi={10.1234/5678},
+  tag={tärkeä}
+}
+``` 
