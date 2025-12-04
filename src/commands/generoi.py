@@ -13,7 +13,7 @@ class Generoi:
                 if isinstance(r, dict):
                     # Muodostetaan BibTeX-tyyppinen merkintä
                     f.write(f"@{r.get('table')}{{{r.get('cite_key','unknown')}\n")
-                    f.write(f"  auther={{{r.get('author','')}}},\n")
+                    f.write(f"  author={{{r.get('author','')}}},\n")
                     f.write(f"  title={{{r.get('title','')}}},\n")
                     f.write(f"  journal={{{r.get('journal','')}}},\n")
                     f.write(f"  year={{{r.get('year','')}}},\n")
