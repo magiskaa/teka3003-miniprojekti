@@ -1,19 +1,24 @@
+import os
 from commands.hae import Hae
 
 class Generoi:
 
-    def __init__(self, db, io):
+    def __init__(self, db, io, output_dir="output"):
         self.db = db
         self.io = io
+        self.output_dir = output_dir
 
     # Luo lähdetiedoston, hakee lähteelle ominaiset tiedot ja kirjoittaa ne tiedostoon.
     # Yliajaa aikaisemman luodun tiedoston.
     def kirjoita_tiedostoon(self, tulokset):
-        with open("output/lahteet.bib", "w", encoding="utf-8") as f:
+        os.makedirs(self.output_dir, exist_ok=True)
+        path = os.path.join(self.output_dir, "lahteet.bib")
+
+        with open(path, "w", encoding="utf-8") as f:
             for r in tulokset:
                 if isinstance(r, dict):
                     # Muodostetaan BibTeX-tyyppinen merkintä
-                    f.write(f"@{r.get('table')}{{{r.get('cite_key','unknown')}\n")
+                    f.write(f"@{r.get('table')}{{{r.get('cite_key','unknown')},\n")
 
                     tietokentat = []
                     # Haetaan kunkin lähteen ominaiset tietokentät
@@ -46,4 +51,4 @@ class Generoi:
             self.io.write("Bibtex-tiedosto generoitu")
 
         except Exception as e:
-            self.io.write("Virhe tiedoston luomisessa")
+            self.io.write(f"Virhe tiedoston luomisessa: {e}")

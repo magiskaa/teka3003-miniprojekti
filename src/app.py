@@ -4,9 +4,10 @@ from commands.hae import Hae
 from commands.generoi import Generoi
 
 class App:
-    def __init__(self, io, db_name="data/tietokanta.sqlite"):
+    def __init__(self, io, db_name="data/tietokanta.sqlite", output_dir="output"):
         self.io = io
         self.db_name = db_name
+        self.output_dir = output_dir
 
     def connect_db(self):
         db = sqlite3.connect(self.db_name)
@@ -57,7 +58,7 @@ class App:
         db = self.connect_db()
 
         while True:
-            self.io.write("\n\nKirjoita komento ja sen perään argumentit.\n"
+            self.io.write("\n\nKirjoita komento ja sen perään referenssityyppi.\n"
                           "\nKäytettävissä olevat komennot: lisaa, hae, generoi"
                           "\nhae: hae <attribuutti> <hakusana> (esim. hae author Matti)"
                           "\nlisaa: lisaa <referenssityyppi> (esim. article, inproceedings, book)\n"
@@ -86,7 +87,7 @@ class App:
                 haku.tulosta()
 
             elif komento.startswith("generoi"):
-                generoi = Generoi(db, self.io)
+                generoi = Generoi(db, self.io, self.output_dir)
                 generoi.run()
 
         db.close()
