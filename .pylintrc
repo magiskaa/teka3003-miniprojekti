@@ -12,6 +12,7 @@ disable=
     W0613, ; unused-argument
     W0511, ; TODO-warning
     W0718, ; broad-exception-caught
+    W0719, ; broad-exception-raised
     R0914  ; too-many-locals
 
 [TYPECHECK]

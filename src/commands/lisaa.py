@@ -13,6 +13,9 @@ class Lisaa:
         self.is_test_mode = hasattr(self.io, 'inputs')
 
     def run(self):
+        if self.arg == "":
+            return
+
         # Tietojen kysyminen
         cite_key = self.io.read("\nCite key (e.g. VPL11): ")
 
@@ -21,6 +24,9 @@ class Lisaa:
 
         elif self.arg.strip() != "" and self.is_valid_doi(self.arg.strip()):
             self._add_from_doi(cite_key)
+
+        elif self.arg.startswith("http"):
+            self._add_from_url(cite_key)
 
         if not self.is_test_mode:
             time.sleep(1.5)
@@ -61,13 +67,35 @@ class Lisaa:
         tag = self._valid("\nTag: ", self.is_valid_tag, "Tag ei kelpaa")
 
         try:
-            self.io.write(f"\nHaetaan tietoja DOI:lla {self.arg}...")
-            url = f"https://api.crossref.org/works/{self.arg}"
+            self.io.write(f"\nHaetaan tietoja DOI:lla {doi}...")
+            url = f"https://api.crossref.org/works/{doi}"
 
             self._insert_into_db(url, cite_key, doi, tag)
 
         except Exception as e:
             self.io.write(f"\nVirhe haettaessa tietoja DOI:lla: {e}")
+
+    def _add_from_url(self, cite_key):
+        match = re.search(r'(10\.\d{4,9}/[-._;()/:A-Z0-9]+)', self.arg.strip(), re.IGNORECASE)
+        if match:
+            doi = match.group(1)
+        else:
+            doi = None
+
+        tag = self._valid("\nTag: ", self.is_valid_tag, "Tag ei kelpaa")
+
+        try:
+            self.io.write(f"\nHaetaan tietoja URL:lla {self.arg}...")
+
+            if doi is None:
+                raise Exception("\nURL ei kelpaa")
+
+            url = f"https://api.crossref.org/works/{doi}"
+
+            self._insert_into_db(url, cite_key, doi, tag)
+
+        except Exception as e:
+            self.io.write(f"\nVirhe haettaessa tietoja URL:lla: {e}")
 
     def _insert_into_db(self, url, cite_key, doi, tag):
         with urlopen(url) as response:
