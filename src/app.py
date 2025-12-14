@@ -21,9 +21,9 @@ class App:
                 author TEXT,
                 title TEXT,
                 journal TEXT,
-                tag TEXT,
                 year INTEGER,
-                doi TEXT UNIQUE
+                doi TEXT UNIQUE,
+                tag TEXT
             )
         """)
         cursor.execute("""
@@ -33,9 +33,9 @@ class App:
                 author TEXT,
                 title TEXT,
                 booktitle TEXT,
-                tag TEXT,
                 year INTEGER,
-                doi TEXT UNIQUE
+                doi TEXT UNIQUE,
+                tag TEXT
             )
         """)
         cursor.execute("""
@@ -44,10 +44,10 @@ class App:
                 cite_key TEXT UNIQUE PRIMARY KEY,
                 author TEXT,
                 title TEXT,
-                year INTEGER,
                 publisher TEXT,
-                tag TEXT,
-                doi TEXT UNIQUE
+                year INTEGER,
+                doi TEXT UNIQUE,
+                tag TEXT
             )
         """)
         db.commit()
@@ -58,11 +58,13 @@ class App:
         db = self.connect_db()
 
         while True:
-            self.io.write("\n\nKirjoita komento ja sen perään referenssityyppi.\n"
-                          "\nKäytettävissä olevat komennot: lisaa, hae, generoi"
+            self.io.write("\n\n==============================================\n"
+                          "Kirjoita komento ja sen perään argumentit.\n"
+                          "\nKäytettävissä olevat komennot: lisaa, hae, generoi\n"
+                          "\nlisaa: lisaa <referenssityyppi> (esim. article, inproceedings, book)"
+                          "\nlisaa: lisaa <DOI/URL> (esim. lisaa 10.1234/56789.1234)"
                           "\nhae: hae <attribuutti> <hakusana> (esim. hae author Matti)"
-                          "\nlisaa: lisaa <referenssityyppi> (esim. article, inproceedings, book)\n"
-                          "\nSulje ohjelma : quit/exit")
+                          "\n\nSulje ohjelma : quit/exit")
             komento = self.io.read("> ")
 
             # Sulkukomento

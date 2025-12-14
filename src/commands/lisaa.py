@@ -1,40 +1,150 @@
 import re
 import sqlite3
+import json
+from urllib.request import urlopen
+import time
+
 class Lisaa:
     def __init__(self, arg, db, io):
         self.arg = arg
         self.db = db
         self.io = io
         self.cursor = db.cursor()
+        self.is_test_mode = hasattr(self.io, 'inputs')
 
     def run(self):
         # Tietojen kysyminen
         cite_key = self.io.read("\nCite key (e.g. VPL11): ")
 
         if self.arg == "article":
-            author = self._valid("\nAuthor(s): ", self.is_valid_author, "Tekijä(t) ei kelpaa")
-            title = self._valid("\nTitle: ", self.is_valid_title, "Otsikko ei kelpaa")
-            journal = self._valid("\nJournal: ", self.is_valid_journal, "Julkaisupaikka ei kelpaa")
-            year = self._valid("\nYear: ", self.is_valid_year, "Vuosi ei kelpaa")
-            doi = self._valid("\nDOI: ", self.is_valid_doi, "DOI ei kelpaa")
-            tag = self._valid("\nTag: ", self.is_valid_tag, "Tag ei kelpaa")
+            self._add_article(cite_key)
 
-            try:
-                doi_value = doi.strip() if doi and doi.strip() else None
+        elif self.arg.strip() != "" and self.is_valid_doi(self.arg.strip()):
+            self._add_from_doi(cite_key)
+
+        if not self.is_test_mode:
+            time.sleep(1.5)
+
+    def _add_article(self, cite_key):
+        author = self._valid("\nAuthor(s): ", self.is_valid_author, "Tekijä(t) ei kelpaa")
+        title = self._valid("\nTitle: ", self.is_valid_title, "Otsikko ei kelpaa")
+        journal = self._valid("\nJournal: ", self.is_valid_journal, "Julkaisupaikka ei kelpaa")
+        year = self._valid("\nYear: ", self.is_valid_year, "Vuosi ei kelpaa")
+        doi = self._valid("\nDOI: ", self.is_valid_doi, "DOI ei kelpaa")
+        tag = self._valid("\nTag: ", self.is_valid_tag, "Tag ei kelpaa")
+
+        try:
+            doi_value = doi.strip() if doi and doi.strip() else None
+            self.cursor.execute(
+                """
+                INSERT INTO article (cite_key, author, title, journal, year, doi, tag)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (cite_key, author, title, journal, int(year), doi_value, tag)
+            )
+            self.db.commit()
+
+            print("\nLisätään artikkelia tietokantaan...")
+            if not self.is_test_mode:
+                for i in range(0, 3):
+                    time.sleep(0.6)
+                    print(".")
+
+            print("\n\n------------------------------------------")
+            self.io.write("|     Artikkeli lisätty tietokantaan     |")
+            print("------------------------------------------")
+        except sqlite3.IntegrityError as e:
+            self.io.write(f"Virhe tallennettaessa: {e}")
+
+    def _add_from_doi(self, cite_key):
+        doi = self.arg.strip()
+        tag = self._valid("\nTag: ", self.is_valid_tag, "Tag ei kelpaa")
+
+        try:
+            self.io.write(f"\nHaetaan tietoja DOI:lla {self.arg}...")
+            url = f"https://api.crossref.org/works/{self.arg}"
+
+            self._insert_into_db(url, cite_key, doi, tag)
+
+        except Exception as e:
+            self.io.write(f"\nVirhe haettaessa tietoja DOI:lla: {e}")
+
+    def _insert_into_db(self, url, cite_key, doi, tag):
+        with urlopen(url) as response:
+            data = json.loads(response.read())
+            message = data["message"]
+
+            authors_list = message.get('author', [])
+            author_names = []
+            for a in authors_list:
+                given = a.get('given', '')
+                family = a.get('family', '')
+                name = f"{given} {family}".strip()
+                if name:
+                    author_names.append(name)
+            author = ", ".join(author_names)
+
+            title = message.get("title", [""])[0]
+
+            published = message.get('published-print', message.get('published-online', {}))
+            date_parts = published.get('date-parts', [[None]])
+            year = date_parts[0][0]
+            year = int(year) if year else None
+
+            if not self.is_test_mode:
+                for i in range(0, 3):
+                    time.sleep(0.6)
+                    print(".")
+
+            work_type = message.get("type", "")
+            if work_type == "journal-article":
+                journal = message.get("container-title", [""])[0]
                 self.cursor.execute(
                     """
-                    INSERT INTO article (cite_key, author, title, journal, year, doi, tag)
+                    INSERT INTO article (
+                        cite_key, author, title, journal, year, doi, tag
+                    )
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
-                    (cite_key, author, title, journal, int(year), doi_value, tag)
+                    (cite_key, author, title, journal, year, doi, tag)
                 )
-                self.db.commit()
-
                 print("\n\n------------------------------------------")
                 self.io.write("|     Artikkeli lisätty tietokantaan     |")
-                print("------------------------------------------")
-            except sqlite3.IntegrityError as e:
-                self.io.write(f"Virhe tallennettaessa: {e}")
+
+            elif work_type == "proceedings-article":
+                booktitle = message.get("container-title", [""])[0]
+                self.cursor.execute(
+                    """
+                    INSERT INTO inproceedings (
+                        cite_key, author, title, booktitle, year, doi, tag
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (cite_key, author, title, booktitle, year, doi, tag)
+                )
+                print("\n\n------------------------------------------")
+                self.io.write("|   Inproceedings lisätty tietokantaan   |")
+
+            elif work_type == "book":
+                publisher = message.get("publisher", "")
+                self.cursor.execute(
+                    """
+                    INSERT INTO book (
+                        cite_key, author, title, publisher, year, doi, tag
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (cite_key, author, title, publisher, year, doi, tag)
+                )
+                print("\n\n------------------------------------------")
+                self.io.write("|        Kirja lisätty tietokantaan      |")
+
+            else:
+                self.io.write(f"\nTätä tyyppiä ei tueta vielä: {work_type}")
+                return
+
+            self.db.commit()
+            print("------------------------------------------")
 
     def _valid(self, syote, validator, error_message):
         # Yleinen valid tarkistin

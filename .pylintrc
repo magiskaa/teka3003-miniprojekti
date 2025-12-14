@@ -11,7 +11,8 @@ disable=
     W0612, ; unused-variable
     W0613, ; unused-argument
     W0511, ; TODO-warning
-    W0718  ; broad-exception-caught
+    W0718, ; broad-exception-caught
+    R0914  ; too-many-locals
 
 [TYPECHECK]
 generated-members=sqlite3.*
