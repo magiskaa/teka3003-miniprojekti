@@ -3,72 +3,72 @@ Library  ../AppLibrary.py
 
 *** Test Cases ***
 Search by author works
-     Input  lisaa article
-    Input  SusMart2018
-    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
-    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät  alihyödynnettyinä
-    Input  Finnish Journal of eHealth and eWelfare
-    Input  2018
-    Input  10.23996/fjhw.70097
+    Input  lisaa article
+    Input  FKS8R
+    Input  Matti Meikäläinen, Seppo Taalasmaa
+    Input  Kuka löi jouluna
+    Input  Iltalehti
+    Input  2012
+    Input  10.1234/5678
     Input  tag
-    Input  hae author Susanna Martikainen
+    Input  hae author Matti Meikäläinen
     Input  exit
     Run Application
-    Output Should Contain  Susanna Martikainen
+    Output Should Contain  Matti Meikäläinen
 
 Search by title works
-     Input  lisaa article
-    Input  SusMart2018
-    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
-    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät  alihyödynnettyinä
-    Input  Finnish Journal of eHealth and eWelfare
-    Input  2018
-    Input  10.23996/fjhw.70097
+    Input  lisaa article
+    Input  FKS8R
+    Input  Matti Meikäläinen, Seppo Taalasmaa
+    Input  Kuka löi jouluna
+    Input  Iltalehti
+    Input  2012
+    Input  10.1234/5678
     Input  tag
-    Input  hae title Lääkärit
+    Input  hae title Kuka lö
     Input  exit
     Run Application
-    Output Should Contain  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät  alihyödynnettyinä
+    Output Should Contain  Kuka löi jouluna
 
 Search by journal works
-     Input  lisaa article
-    Input  SusMart2018
-    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
-    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät  alihyödynnettyinä
-    Input  Finnish Journal of eHealth and eWelfare
-    Input  2018
-    Input  10.23996/fjhw.70097
+    Input  lisaa article
+    Input  FKS8R
+    Input  Matti Meikäläinen, Seppo Taalasmaa
+    Input  Kuka löi jouluna
+    Input  Iltalehti
+    Input  2012
+    Input  10.1234/5678
     Input  tag
-    Input  hae journal Finnish Journal of eHealth and eWelfare
+    Input  hae journal iltalehti
     Input  exit
     Run Application
-    Output Should Contain  Finnish Journal of eHealth and eWelfare
+    Output Should Contain  Iltalehti
 
 Search by doi works
-     Input  lisaa article
-    Input  SusMart2018
-    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
-    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä
-    Input  Finnish Journal of eHealth and eWelfare
-    Input  2018
-    Input  10.23996/fjhw.70097
+    Input  lisaa article
+    Input  FKS8R
+    Input  Matti Meikäläinen, Seppo Taalasmaa
+    Input  Kuka löi jouluna
+    Input  Iltalehti
+    Input  2012
+    Input  10.1234/5678
     Input  tag
-    Input  hae doi 10.2
+    Input  hae doi 10.1
     Input  exit
     Run Application
-    Output Should Contain  10.23996/fjhw.70097
+    Output Should Contain  10.1234/5678
 
 Search by year works
-     Input  lisaa article
-    Input  SusMart2018
-    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
-    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä
-    Input  Finnish Journal of eHealth and eWelfare
-    Input  2018
-    Input  10.23996/fjhw.70097
+    Input  lisaa article
+    Input  FKS8R
+    Input  Matti Meikäläinen, Seppo Taalasmaa
+    Input  Kuka löi jouluna
+    Input  Iltalehti
+    Input  2012
+    Input  10.1234/5678
     Input  tag
-    Input  hae vuosi 2018
+    Input  hae vuosi 2012
     Input  exit
     Run Application
-    Output Should Contain  2018
+    Output Should Contain  2012
     
