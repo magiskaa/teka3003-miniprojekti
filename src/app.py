@@ -68,7 +68,7 @@ class App:
                           "\n\nSulje ohjelma : quit/exit")
             komento = self.io.read("> ")
 
-            # Testausta varten, jotta ei jää ikuisesti silmukkaan 
+            # Testausta varten, jotta ei jää ikuisesti silmukkaan
             if komento == "" and getattr(self, 'is_test_mode', False):
                 break
 

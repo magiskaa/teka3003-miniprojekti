@@ -13,7 +13,8 @@ disable=
     W0511, ; TODO-warning
     W0718, ; broad-exception-caught
     W0719, ; broad-exception-raised
-    R0914  ; too-many-locals
+    R0914, ; too-many-locals
+    R0915  ; too-many-statements
 
 [TYPECHECK]
 generated-members=sqlite3.*
