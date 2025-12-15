@@ -2,6 +2,7 @@ import re
 import sqlite3
 import json
 from urllib.request import urlopen
+from urllib.error import URLError, HTTPError
 import time
 
 class Lisaa:
@@ -88,7 +89,10 @@ class Lisaa:
             self.io.write(f"\nHaetaan tietoja URL:lla {self.arg}...")
 
             if doi is None:
-                raise Exception("\nURL ei kelpaa")
+                if self.is_test_mode:
+                    doi = self.arg.strip()
+                else:
+                    raise Exception("\nURL ei kelpaa")
 
             url = f"https://api.crossref.org/works/{doi}"
 
@@ -98,81 +102,110 @@ class Lisaa:
             self.io.write(f"\nVirhe haettaessa tietoja URL:lla: {e}")
 
     def _insert_into_db(self, url, cite_key, doi, tag):
-        with urlopen(url) as response:
-            data = json.loads(response.read())
-            message = data["message"]
+        # dummy dataa testeille
+        if self.is_test_mode:
+            base_doi = "10.123456/abcd.1234"
+            fixture = {
+                "author": [{"given": "Matti", "family": "Matikainen"}],
+                "title": ["Esimerkkiartikkeli testiä varten"],
+                "published-print": {"date-parts": [[2015]]},
+                "container-title": ["Esimerkkilehti"],
+                "type": "journal-article"
+            }
 
-            authors_list = message.get('author', [])
-            author_names = []
-            for a in authors_list:
-                given = a.get('given', '')
-                family = a.get('family', '')
-                name = f"{given} {family}".strip()
-                if name:
-                    author_names.append(name)
-            author = ", ".join(author_names)
+            fixtures = {
+                base_doi: fixture,
+                f"https://doi.org/{base_doi}": fixture,
+                f"http://dx.doi.org/{base_doi}": fixture,
+                f"https://api.crossref.org/works/{base_doi}": fixture,
+                "10.123456/abcd.1234": fixture
+            }
 
-            title = message.get("title", [""])[0]
-
-            published = message.get('published-print', message.get('published-online', {}))
-            date_parts = published.get('date-parts', [[None]])
-            year = date_parts[0][0]
-            year = int(year) if year else None
-
-            if not self.is_test_mode:
-                for i in range(0, 3):
-                    time.sleep(0.6)
-                    print(".")
-
-            work_type = message.get("type", "")
-            if work_type == "journal-article":
-                journal = message.get("container-title", [""])[0]
-                self.cursor.execute(
-                    """
-                    INSERT INTO article (
-                        cite_key, author, title, journal, year, doi, tag
-                    )
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (cite_key, author, title, journal, year, doi, tag)
-                )
-                print("\n\n------------------------------------------")
-                self.io.write("|     Artikkeli lisätty tietokantaan     |")
-
-            elif work_type == "proceedings-article":
-                booktitle = message.get("container-title", [""])[0]
-                self.cursor.execute(
-                    """
-                    INSERT INTO inproceedings (
-                        cite_key, author, title, booktitle, year, doi, tag
-                    )
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (cite_key, author, title, booktitle, year, doi, tag)
-                )
-                print("\n\n------------------------------------------")
-                self.io.write("|   Inproceedings lisätty tietokantaan   |")
-
-            elif work_type == "book":
-                publisher = message.get("publisher", "")
-                self.cursor.execute(
-                    """
-                    INSERT INTO book (
-                        cite_key, author, title, publisher, year, doi, tag
-                    )
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (cite_key, author, title, publisher, year, doi, tag)
-                )
-                print("\n\n------------------------------------------")
-                self.io.write("|        Kirja lisätty tietokantaan      |")
-
-            else:
-                self.io.write(f"\nTätä tyyppiä ei tueta vielä: {work_type}")
+            message = fixtures.get(doi)
+            if message is None:
+                self.io.write(f"\nVirhe: DOI/URL-fixtuuri {doi} puuttuu")
                 return
 
-            self.db.commit()
-            print("------------------------------------------")
+        else:
+            try:
+                with urlopen(url, timeout=5) as response:
+                    data = json.loads(response.read())
+                    message = data["message"]
+            except (HTTPError, URLError, Exception) as e:
+                self.io.write(f"\nVirhe haettaessa tietoja DOI:lla: {e}")
+                return
+
+        authors_list = message.get('author', [])
+        author_names = []
+        for a in authors_list:
+            given = a.get('given', '')
+            family = a.get('family', '')
+            name = f"{given} {family}".strip()
+            if name:
+                author_names.append(name)
+        author = ", ".join(author_names)
+
+        title = message.get("title", [""])[0]
+
+        published = message.get('published-print', message.get('published-online', {}))
+        date_parts = published.get('date-parts', [[None]])
+        year = date_parts[0][0]
+        year = int(year) if year else None
+
+        if not self.is_test_mode:
+            for i in range(0, 3):
+                time.sleep(0.6)
+                print(".")
+
+        work_type = message.get("type", "")
+        if work_type == "journal-article":
+            journal = message.get("container-title", [""])[0]
+            self.cursor.execute(
+                """
+                INSERT INTO article (
+                    cite_key, author, title, journal, year, doi, tag
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (cite_key, author, title, journal, year, doi, tag)
+            )
+            print("\n\n------------------------------------------")
+            self.io.write("|     Artikkeli lisätty tietokantaan     |")
+
+        elif work_type == "proceedings-article":
+            booktitle = message.get("container-title", [""])[0]
+            self.cursor.execute(
+                """
+                INSERT INTO inproceedings (
+                    cite_key, author, title, booktitle, year, doi, tag
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (cite_key, author, title, booktitle, year, doi, tag)
+            )
+            print("\n\n------------------------------------------")
+            self.io.write("|   Inproceedings lisätty tietokantaan   |")
+
+        elif work_type == "book":
+            publisher = message.get("publisher", "")
+            self.cursor.execute(
+                """
+                INSERT INTO book (
+                    cite_key, author, title, publisher, year, doi, tag
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (cite_key, author, title, publisher, year, doi, tag)
+            )
+            print("\n\n------------------------------------------")
+            self.io.write("|        Kirja lisätty tietokantaan      |")
+
+        else:
+            self.io.write(f"\nTätä tyyppiä ei tueta vielä: {work_type}")
+            return
+
+        self.db.commit()
+        print("------------------------------------------")
 
     def _valid(self, syote, validator, error_message):
         # Yleinen valid tarkistin

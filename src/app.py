@@ -8,6 +8,7 @@ class App:
         self.io = io
         self.db_name = db_name
         self.output_dir = output_dir
+        self.is_test_mode = hasattr(self.io, 'inputs')
 
     def connect_db(self):
         db = sqlite3.connect(self.db_name)
@@ -66,6 +67,10 @@ class App:
                           "\nhae: hae <attribuutti> <hakusana> (esim. hae author Matti)"
                           "\n\nSulje ohjelma : quit/exit")
             komento = self.io.read("> ")
+
+            # Testausta varten, jotta ei jää ikuisesti silmukkaan 
+            if komento == "" and getattr(self, 'is_test_mode', False):
+                break
 
             # Sulkukomento
             if komento in ("exit", "quit"):
