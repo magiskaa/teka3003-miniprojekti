@@ -5,14 +5,13 @@ Library  ../AppLibrary.py
 
 Generoi produces valid bibtex-file
     Input  lisaa article
-    Input  key1
-    Input  Matti Meikäläinen
-    Input  Kuka löi jouluna
-    Input  Iltalehti
-    Input  2012
-    Input  10.1234/5678
+    Input  SusMart2018
+    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
+    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä
+    Input  Finnish Journal of eHealth and eWelfare
+    Input  2018
+    Input  10.23996/fjhw.70097
     Input  tag
-    Input  generoi
     Input  exit
     Run Application
 
@@ -20,11 +19,11 @@ Generoi produces valid bibtex-file
 
     ${content}=  Read Generated File
 
-    File Should Contain  @article{key1,
-    File Should Contain    author={Matti Meikäläinen},
-    File Should Contain    title={Kuka löi jouluna},
-    File Should Contain    journal={Iltalehti},
-    File Should Contain    year={2012},
-    File Should Contain    doi={10.1234/5678},
+    File Should Contain  @article{SusMart2018,
+    File Should Contain    author={Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri},
+    File Should Contain    title={Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä},
+    File Should Contain    journal={Finnish Journal of eHealth and eWelfare},
+    File Should Contain    year={2018},
+    File Should Contain    doi={10.23996/fjhw.70097},
     File Should Contain    tag={tag}
     File Should Contain  }

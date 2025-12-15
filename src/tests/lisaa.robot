@@ -4,13 +4,13 @@ Library  ../AppLibrary.py
 *** Test Cases ***
 Author validation works
     Input  lisaa article
-    Input  FKS8R
-    Input  Matti M31käläinen, Seppo T44lasmaa
-    Input  Matti Meikäläinen, Seppo Taalasmaa
-    Input  Kuka löi jouluna
-    Input  Iltalehti
-    Input  2012
-    Input  10.1234/5678
+    Input  SusMart2018
+    Input  Susanna Martika1nen, J4ana Kotila, J0hanna Kaipio, T1nja Lääveri
+    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
+    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä
+    Input  Finnish Journal of eHealth and eWelfare
+    Input  2018
+    Input  10.23996/fjhw.70097
     Input  tag
     Input  exit
     Run Application
@@ -18,13 +18,13 @@ Author validation works
 
 Title validation works
     Input  lisaa article
-    Input  FKS8R
-    Input  Matti Meikäläinen, Seppo Taalasmaa
+    Input  SusMart2018
+    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
     Input  ${EMPTY}
-    Input  Kuka löi jouluna
-    Input  Iltalehti
+    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä
+    Input  Finnish Journal of eHealth and eWelfare
     Input  2012
-    Input  10.1234/5678
+    Input  10.23996/fjhw.70097
     Input  tag
     Input  exit
     Run Application
@@ -32,13 +32,13 @@ Title validation works
 
 Journal validation works
     Input  lisaa article
-    Input  FKS8R
-    Input  Matti Meikäläinen, Seppo Taalasmaa
-    Input  Kuka löi jouluna
+    Input  SusMart2018
+    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
+    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä
     Input  ${EMPTY}
-    Input  Iltalehti
-    Input  2012
-    Input  10.1234/5678
+    Input  Finnish Journal of eHealth and eWelfare
+    Input  2018
+    Input  10.23996/fjhw.70097
     Input  tag
     Input  exit
     Run Application
@@ -46,13 +46,13 @@ Journal validation works
 
 Year validation works
     Input  lisaa article
-    Input  FKS8R
-    Input  Matti Meikäläinen, Seppo Taalasmaa
-    Input  Kuka löi jouluna
-    Input  Iltalehti
-    Input  Matti
-    Input  2012
-    Input  10.1234/5678
+    Input  SusMart2018
+    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
+    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä
+    Input  Finnish Journal of eHealth and eWelfare
+    Input  KaksiTuhattaKahdeksanToista
+    Input  2018
+    Input  10.23996/fjhw.70097
     Input  tag
     Input  exit
     Run Application
@@ -60,14 +60,14 @@ Year validation works
 
 DOI validation works
     Input  lisaa article
-    Input  FKS8R
+    Input  SusMart2018
     Input  Matti M31käläinen, Seppo T44lasmaa
-    Input  Matti Meikäläinen, Seppo Taalasmaa
+    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
     Input  Kuka löi jouluna
     Input  Iltalehti
     Input  2012
     Input  1234567890
-    Input  10.1234/5678
+    Input  10.23996/fjhw.70097
     Input  tag
     Input  exit
     Run Application
@@ -76,13 +76,13 @@ DOI validation works
 Tag validation works
     Input  lisaa article
     Input  FKS8R
-    Input  Matti M31käläinen, Seppo T44lasmaa
+    Input  Susanna Martika1nen, J4ana Kotila, J0hanna Kaipio, T1nja Lääveri
     Input  Matti Meikäläinen, Seppo Taalasmaa
-    Input  Kuka löi jouluna
-    Input  Iltalehti
-    Input  2012
+    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä
+    Input  Finnish Journal of eHealth and eWelfare
+    Input  2018
     Input  1234567890
-    Input  10.1234/5678
+    Input  10.23996/fjhw.70097
     Input  a¨'´cä
     Input  tag
     Input  exit

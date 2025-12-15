@@ -4,12 +4,12 @@ Library  ../AppLibrary.py
 *** Test Cases ***
 Add article citation works
     Input  lisaa article
-    Input  FKS8R
-    Input  Matti Meikäläinen, Seppo Taalasmaa
-    Input  Kuka löi jouluna
-    Input  Iltalehti
-    Input  2012
-    Input  10.1234/5678
+    Input  SusMart2018
+    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
+    Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä
+    Input  Finnish Journal of eHealth and eWelfare
+    Input  2018
+    Input  10.23996/fjhw.70097
     Input  tag
     Input  exit
     Run Application
