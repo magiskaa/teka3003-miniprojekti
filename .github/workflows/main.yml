@@ -5,6 +5,8 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -21,3 +23,23 @@ jobs:
 
       - name: Run linter inside container
         run: docker run --rm myapp pylint
+
+  package:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'release'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create ZIP
+        run: zip -r teka3003-miniprojekti.zip teka3003-miniprojekti/
+
+      - name: Create tar.gz
+        run: tar -czvf teka3003-miniprojekti.tar.gz teka3003-miniprojekti/
+
+      - name: Upload assets to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            teka3003-miniprojekti.zip
+            teka3003-miniprojekti.tar.gz
