@@ -140,10 +140,10 @@ class Lisaa:
         for a in authors_list:
             given = a.get('given', '')
             family = a.get('family', '')
-            name = f"{given} {family}".strip()
+            name = f"{family}, {given}".strip()
             if name:
                 author_names.append(name)
-        author = ", ".join(author_names)
+        author = " AND ".join(author_names)
 
         title = message.get("title", [""])[0]
 
