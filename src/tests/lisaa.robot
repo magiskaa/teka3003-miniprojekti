@@ -12,7 +12,6 @@ Author validation works
     Input  2018
     Input  10.23996/fjhw.70097
     Input  tag
-    Input  exit
     Run Application
     Output Should Contain  Tekijä(t) ei kelpaa
 
@@ -26,7 +25,6 @@ Title validation works
     Input  2012
     Input  10.23996/fjhw.70097
     Input  tag
-    Input  exit
     Run Application
     Output Should Contain  Otsikko ei kelpaa
 
@@ -40,7 +38,6 @@ Journal validation works
     Input  2018
     Input  10.23996/fjhw.70097
     Input  tag
-    Input  exit
     Run Application
     Output Should Contain  Julkaisupaikka ei kelpaa
 
@@ -54,7 +51,6 @@ Year validation works
     Input  2018
     Input  10.23996/fjhw.70097
     Input  tag
-    Input  exit
     Run Application
     Output Should Contain  Vuosi ei kelpaa
 
@@ -69,7 +65,6 @@ DOI validation works
     Input  1234567890
     Input  10.23996/fjhw.70097
     Input  tag
-    Input  exit
     Run Application
     Output Should Contain  DOI ei kelpaa
 
@@ -85,6 +80,19 @@ Tag validation works
     Input  10.23996/fjhw.70097
     Input  a¨'´cä
     Input  tag
-    Input  exit
     Run Application
     Output Should Contain  Tag ei kelpaa
+
+Add from DOI works
+    Input  lisaa 10.1109/ICISCE.2018.00127
+    Input  DOIREF1
+    Input  tag
+    Run Application
+    Output Should Contain  Artikkeli lisätty tietokantaan
+
+Add from URL works
+    Input  lisaa https://doi.org/10.1109/ICISCE.2018.00127
+    Input  URLREF1
+    Input  tag
+    Run Application
+    Output Should Contain  Artikkeli lisätty tietokantaan

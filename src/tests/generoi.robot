@@ -6,7 +6,7 @@ Library  ../AppLibrary.py
 Generoi produces valid bibtex-file
     Input  lisaa article
     Input  SusMart2018
-    Input  Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri
+    Input  Martikainen, Susanna AND Kotila, Jaana AND Kaipio, Johanna AND Lääveri, Tinja
     Input  Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä
     Input  Finnish Journal of eHealth and eWelfare
     Input  2018
@@ -21,7 +21,7 @@ Generoi produces valid bibtex-file
     ${content}=  Read Generated File
 
     File Should Contain  @article{SusMart2018,
-    File Should Contain    author={Susanna Martikainen, Jaana Kotila, Johanna Kaipio, Tinja Lääveri},
+    File Should Contain    author={Martikainen, Susanna AND Kotila, Jaana AND Kaipio, Johanna AND Lääveri, Tinja},
     File Should Contain    title={Lääkärit ja hoitajat parempien tietojärjestelmien kehittämistyössä: kyvykkäät ja innokkaat käyttäjät alihyödynnettyinä},
     File Should Contain    journal={Finnish Journal of eHealth and eWelfare},
     File Should Contain    year={2018},

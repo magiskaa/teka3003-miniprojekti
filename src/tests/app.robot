@@ -15,20 +15,6 @@ Add article citation works
     Run Application
     Output Should Contain  Artikkeli lisätty tietokantaan
 
-Add DOI citation works
-    Input  lisaa 10.123456/abcd.1234
-    Input  DOITest2015 
-    Input  Tag
-    Run Application    
-    Output Should Contain  Artikkeli lisätty tietokantaan
-
-Add URL citation works
-    Input  lisaa https://link.springer.com/article/10.123456/abcd.1234
-    Input  UrlTest2015
-    Input  Tag
-    Run Application    
-    Output Should Contain  Artikkeli lisätty tietokantaan
-
 Shutting down app works
     Input  exit
     Run Application

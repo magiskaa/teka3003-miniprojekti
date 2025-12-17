@@ -130,7 +130,7 @@ class Lisaa:
     def _insert_into_db(self, url, cite_key, doi, tag):
         # dummy dataa testeille
         if self.is_test_mode:
-            base_doi = "10.123456/abcd.1234"
+            base_doi = "10.1109/ICISCE.2018.00127"
             fixture = {
                 "author": [{"given": "Matti", "family": "Matikainen"}],
                 "title": ["Esimerkkiartikkeli testiä varten"],
@@ -144,7 +144,7 @@ class Lisaa:
                 f"https://doi.org/{base_doi}": fixture,
                 f"http://dx.doi.org/{base_doi}": fixture,
                 f"https://api.crossref.org/works/{base_doi}": fixture,
-                "10.123456/abcd.1234": fixture
+                "10.1109/ICISCE.2018.00127": fixture
             }
 
             message = fixtures.get(doi)
@@ -166,10 +166,10 @@ class Lisaa:
         for a in authors_list:
             given = a.get('given', '')
             family = a.get('family', '')
-            name = f"{given} {family}".strip()
+            name = f"{family}, {given}".strip()
             if name:
                 author_names.append(name)
-        author = ", ".join(author_names)
+        author = " AND ".join(author_names)
 
         title = message.get("title", [""])[0]
 
