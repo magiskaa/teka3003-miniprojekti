@@ -72,7 +72,7 @@ class Lisaa:
 
         try:
             entry = obj.build_entry(self.io)
-            self.io.write("\nLisätään merkintää tietokantaan...")
+            self.io.write("\nLisätään artikkelia tietokantaan...")
             iq, values = entry.create_insertion_query()
             self.cursor.execute(iq, values)
             
@@ -84,7 +84,7 @@ class Lisaa:
             self.db.commit()
             
             self.io.write("\n\n------------------------------------------")
-            self.io.write("|     Merkintä lisätty tietokantaan     |")
+            self.io.write("|     Artikkeli lisätty tietokantaan     |")
             self.io.write("------------------------------------------")
         except sqlite3.IntegrityError as e:
             self.io.write(f"Virhe tallennettaessa: {e}")
