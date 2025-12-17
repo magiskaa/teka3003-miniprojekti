@@ -4,6 +4,7 @@ import json
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 import time
+from EntryType import *
 
 class Lisaa:
     def __init__(self, arg, db, io):
@@ -12,54 +13,79 @@ class Lisaa:
         self.io = io
         self.cursor = db.cursor()
         self.is_test_mode = hasattr(self.io, 'inputs')
-
+        
     def run(self):
         if self.arg == "":
             return
 
         # Tietojen kysyminen
-        cite_key = self.io.read("\nCite key (e.g. VPL11): ")
 
         if self.arg == "article":
-            self._add_article(cite_key)
+            self._add_entry(Article())
+        elif self.arg == "book":
+            self._add_entry(Book())
+        elif self.arg == "booklet":
+            self._add_entry(Booklet())
+        elif self.arg == "conference":
+            self._add_entry(Conference())
+        elif self.arg == "inbook":
+            self._add_entry(Inbook())
+        elif self.arg == "incollection":
+            self._add_entry(Incollection())
+        elif self.arg == "inproceedings":
+            self._add_entry(Inproceedings())
+        elif self.arg == "manual":
+            self._add_entry(Inproceedings())
+        elif self.arg == "mastersthesis":
+            self._add_entry(Mastersthesis())
+        elif self.arg == "misc":
+            self._add_entry(Misc())
+        elif self.arg == "phdthesis":
+            self._add_entry(Phdthesis())
+        elif self.arg == "proceedings":
+            self._add_entry(Proceedings())
+        elif self.arg == "techreport":
+            self._add_entry(Techreport())
+        elif self.arg == "unpublished":
+            self._add_entry(Unpublished())
 
         elif self.arg.strip() != "" and self.is_valid_doi(self.arg.strip()):
+            cite_key = self.io.read("\nCite key (e.g. VPL11): ")
             self._add_from_doi(cite_key)
 
         elif self.arg.startswith("http"):
+            cite_key = self.io.read("\nCite key (e.g. VPL11): ")
             self._add_from_url(cite_key)
 
         if not self.is_test_mode:
             time.sleep(1.5)
 
-    def _add_article(self, cite_key):
-        author = self._valid("\nAuthor(s): ", self.is_valid_author, "Tekijä(t) ei kelpaa")
-        title = self._valid("\nTitle: ", self.is_valid_title, "Otsikko ei kelpaa")
-        journal = self._valid("\nJournal: ", self.is_valid_journal, "Julkaisupaikka ei kelpaa")
-        year = self._valid("\nYear: ", self.is_valid_year, "Vuosi ei kelpaa")
-        doi = self._valid("\nDOI: ", self.is_valid_doi, "DOI ei kelpaa")
-        tag = self._valid("\nTag: ", self.is_valid_tag, "Tag ei kelpaa")
+    def _add_entry(self, obj: EntryType):
+        
+        try:
+            table_query = obj.create_table_query()
+            self.cursor.execute(table_query)
+            self.db.commit()
+        except Exception as e:
+            self.io.write(str(e))
+            return
 
         try:
-            doi_value = doi.strip() if doi and doi.strip() else None
-            self.cursor.execute(
-                """
-                INSERT INTO article (cite_key, author, title, journal, year, doi, tag)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-                """,
-                (cite_key, author, title, journal, int(year), doi_value, tag)
-            )
-            self.db.commit()
-
-            print("\nLisätään artikkelia tietokantaan...")
+            entry = obj.build_entry(self.io)
+            self.io.write("\nLisätään merkintää tietokantaan...")
+            iq, values = entry.create_insertion_query()
+            self.cursor.execute(iq, values)
+            
             if not self.is_test_mode:
                 for i in range(0, 3):
                     time.sleep(0.6)
                     print(".")
-
-            print("\n\n------------------------------------------")
-            self.io.write("|     Artikkeli lisätty tietokantaan     |")
-            print("------------------------------------------")
+            
+            self.db.commit()
+            
+            self.io.write("\n\n------------------------------------------")
+            self.io.write("|     Merkintä lisätty tietokantaan     |")
+            self.io.write("------------------------------------------")
         except sqlite3.IntegrityError as e:
             self.io.write(f"Virhe tallennettaessa: {e}")
 
