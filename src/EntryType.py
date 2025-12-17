@@ -101,21 +101,21 @@ class Article(EntryType):
 @dataclass
 class Book(EntryType):
     author: Optional[Author] = field(default=None, metadata={"prompt": "Author", "required": True})
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
     publisher: Optional[str] = field(default=None, metadata={"prompt": "Publisher", "required": True})
     address: Optional[str] = field(default=None, metadata={"prompt": "Address", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
 
     doi: Optional[Doi] = field(default=None, metadata={"prompt": "DOI", "required": True})
     tag: Optional[Tag] = field(default=None, metadata={"prompt": "Tag"})
 
 @dataclass
 class Booklet(EntryType):
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
-    author: Optional[str] = field(default=None, metadata={"prompt": "Author", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
+    author: Optional[Author] = field(default=None, metadata={"prompt": "Author", "required": True})
     howpublished: Optional[str] = field(default=None, metadata={"prompt": "Howpublished", "required": True})
     month: Optional[str] = field(default=None, metadata={"prompt": "Month", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
     
     editor: Optional[str] = field(default=None, metadata={"prompt": "Editor"})
     volume: Optional[str] = field(default=None, metadata={"prompt": "Volume"})
@@ -130,10 +130,10 @@ class Booklet(EntryType):
 
 @dataclass
 class Conference(EntryType):
-    author: Optional[str] = field(default=None, metadata={"prompt": "Author", "required": True})
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
-    booktitle: Optional[str] = field(default=None, metadata={"prompt": "Booktitle", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    author: Optional[Author] = field(default=None, metadata={"prompt": "Author", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
+    booktitle: Optional[Title] = field(default=None, metadata={"prompt": "Booktitle", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
     
     series: Optional[str] = field(default=None, metadata={"prompt": "Series"})
     pages: Optional[str] = field(default=None, metadata={"prompt": "Pages"})
@@ -145,11 +145,11 @@ class Conference(EntryType):
 
 @dataclass
 class Inbook(EntryType):
-    author: Optional[str] = field(default=None, metadata={"prompt": "Author", "required": True})
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
-    booktitle: Optional[str] = field(default=None, metadata={"prompt": "Booktitle", "required": True})
+    author: Optional[Author] = field(default=None, metadata={"prompt": "Author", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
+    booktitle: Optional[Title] = field(default=None, metadata={"prompt": "Booktitle", "required": True})
     publisher: Optional[str] = field(default=None, metadata={"prompt": "Publisher", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
     
     address: Optional[str] = field(default=None, metadata={"prompt": "Address"})
     pages: Optional[str] = field(default=None, metadata={"prompt": "Pages"})
@@ -159,11 +159,11 @@ class Inbook(EntryType):
 
 @dataclass
 class Incollection(EntryType):
-    author: Optional[str] = field(default=None, metadata={"prompt": "Author", "required": True})
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
-    booktitle: Optional[str] = field(default=None, metadata={"prompt": "Booktitle", "required": True})
+    author: Optional[Author] = field(default=None, metadata={"prompt": "Author", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
+    booktitle: Optional[Title] = field(default=None, metadata={"prompt": "Booktitle", "required": True})
     publisher: Optional[str] = field(default=None, metadata={"prompt": "Publisher", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
     
     editor: Optional[str] = field(default=None, metadata={"prompt": "Editor"})
     address: Optional[str] = field(default=None, metadata={"prompt": "Address"})
@@ -174,10 +174,10 @@ class Incollection(EntryType):
 
 @dataclass
 class Inproceedings(EntryType):
-    author: Optional[str] = field(default=None, metadata={"prompt": "Author", "required": True})
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
-    booktitle: Optional[str] = field(default=None, metadata={"prompt": "Booktitle", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    author: Optional[Author] = field(default=None, metadata={"prompt": "Author", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
+    booktitle: Optional[Title] = field(default=None, metadata={"prompt": "Booktitle", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
     
     series: Optional[str] = field(default=None, metadata={"prompt": "Series"})
     pages: Optional[str] = field(default=None, metadata={"prompt": "Pages"})
@@ -189,10 +189,10 @@ class Inproceedings(EntryType):
 
 @dataclass
 class Manual(EntryType):
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
     
-    author: Optional[str] = field(default=None, metadata={"prompt": "Author"})
+    author: Optional[Author] = field(default=None, metadata={"prompt": "Author"})
     organization: Optional[str] = field(default=None, metadata={"prompt": "Organization"})
     address: Optional[str] = field(default=None, metadata={"prompt": "Address"})
 
@@ -201,10 +201,10 @@ class Manual(EntryType):
 
 @dataclass
 class Mastersthesis(EntryType):
-    author: Optional[str] = field(default=None, metadata={"prompt": "Author", "required": True})
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
+    author: Optional[Author] = field(default=None, metadata={"prompt": "Author", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
     school: Optional[str] = field(default=None, metadata={"prompt": "School", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
     
     address: Optional[str] = field(default=None, metadata={"prompt": "Address"})
     month: Optional[str] = field(default=None, metadata={"prompt": "Month"})
@@ -214,10 +214,10 @@ class Mastersthesis(EntryType):
 
 @dataclass
 class Misc(EntryType):
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
     
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year"})
-    author: Optional[str] = field(default=None, metadata={"prompt": "Author"})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year"})
+    author: Optional[Author] = field(default=None, metadata={"prompt": "Author"})
     howpublished: Optional[str] = field(default=None, metadata={"prompt": "Howpublished"})
     note: Optional[str] = field(default=None, metadata={"prompt": "Note"})
 
@@ -226,10 +226,10 @@ class Misc(EntryType):
 
 @dataclass
 class Phdthesis(EntryType):
-    author: Optional[str] = field(default=None, metadata={"prompt": "Author", "required": True})
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
+    author: Optional[Author] = field(default=None, metadata={"prompt": "Author", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
     school: Optional[str] = field(default=None, metadata={"prompt": "School", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
     
     address: Optional[str] = field(default=None, metadata={"prompt": "Address"})
     month: Optional[str] = field(default=None, metadata={"prompt": "Month"})
@@ -239,8 +239,8 @@ class Phdthesis(EntryType):
 
 @dataclass
 class Proceedings(EntryType):
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
     
     editor: Optional[str] = field(default=None, metadata={"prompt": "Editor"})
     series: Optional[str] = field(default=None, metadata={"prompt": "Series"})
@@ -253,10 +253,10 @@ class Proceedings(EntryType):
 
 @dataclass
 class Techreport(EntryType):
-    author: Optional[str] = field(default=None, metadata={"prompt": "Author", "required": True})
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
+    author: Optional[Author] = field(default=None, metadata={"prompt": "Author", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
     institution: Optional[str] = field(default=None, metadata={"prompt": "Institution", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
     number: Optional[str] = field(default=None, metadata={"prompt": "Number", "required": True})
     
     address: Optional[str] = field(default=None, metadata={"prompt": "Address"})
@@ -267,9 +267,9 @@ class Techreport(EntryType):
 
 @dataclass
 class Unpublished(EntryType):
-    author: Optional[str] = field(default=None, metadata={"prompt": "Author", "required": True})
-    title: Optional[str] = field(default=None, metadata={"prompt": "Title", "required": True})
-    year: Optional[str] = field(default=None, metadata={"prompt": "Year", "required": True})
+    author: Optional[Author] = field(default=None, metadata={"prompt": "Author", "required": True})
+    title: Optional[Title] = field(default=None, metadata={"prompt": "Title", "required": True})
+    year: Optional[Year] = field(default=None, metadata={"prompt": "Year", "required": True})
 
     doi: Optional[Doi] = field(default=None, metadata={"prompt": "DOI", "required": True})
     tag: Optional[Tag] = field(default=None, metadata={"prompt": "Tag"})
