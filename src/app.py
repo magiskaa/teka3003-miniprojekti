@@ -15,43 +15,43 @@ class App:
         db.row_factory = sqlite3.Row
         cursor = db.cursor()
 
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS 
-            article (
-                cite_key TEXT UNIQUE PRIMARY KEY,
-                author TEXT,
-                title TEXT,
-                journal TEXT,
-                year INTEGER,
-                doi TEXT UNIQUE,
-                tag TEXT
-            )
-        """)
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS 
-            inproceedings (
-                cite_key TEXT UNIQUE PRIMARY KEY,
-                author TEXT,
-                title TEXT,
-                booktitle TEXT,
-                year INTEGER,
-                doi TEXT UNIQUE,
-                tag TEXT
-            )
-        """)
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS 
-            book (
-                cite_key TEXT UNIQUE PRIMARY KEY,
-                author TEXT,
-                title TEXT,
-                publisher TEXT,
-                year INTEGER,
-                doi TEXT UNIQUE,
-                tag TEXT
-            )
-        """)
-        db.commit()
+        #cursor.execute("""
+        #    CREATE TABLE IF NOT EXISTS 
+        #    article (
+        #        cite_key TEXT UNIQUE PRIMARY KEY,
+        #        author TEXT,
+        #        title TEXT,
+        #        journal TEXT,
+        #        year INTEGER,
+        #        doi TEXT UNIQUE,
+        #        tag TEXT
+        #    )
+        #""")
+        #cursor.execute("""
+        #    CREATE TABLE IF NOT EXISTS 
+        #    inproceedings (
+        #        cite_key TEXT UNIQUE PRIMARY KEY,
+        #        author TEXT,
+        #        title TEXT,
+        #        booktitle TEXT,
+        #        year INTEGER,
+        #        doi TEXT UNIQUE,
+        #        tag TEXT
+        #    )
+        #""")
+        #cursor.execute("""
+        #    CREATE TABLE IF NOT EXISTS 
+        #    book (
+        #        cite_key TEXT UNIQUE PRIMARY KEY,
+        #        author TEXT,
+        #        title TEXT,
+        #        publisher TEXT,
+        #        year INTEGER,
+        #        doi TEXT UNIQUE,
+        #        tag TEXT
+        #    )
+        #""")
+        #db.commit()
 
         return db
 
