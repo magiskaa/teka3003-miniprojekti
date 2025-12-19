@@ -2,6 +2,8 @@
 
 [Backlog](https://docs.google.com/spreadsheets/d/1iG8tZJiLOmtiUZvNDI_r38IGDxe9mPEwLc3JRLR8H6M/edit?usp=sharing)
 
+[Raportti](https://docs.google.com/document/d/1jumn0NtaZMewBeQfLOulbcn_zw-HSbyWdeC-kh7C9JI/edit?usp=sharing)
+
 [![CI](https://github.com/magiskaa/teka3003-miniprojekti/actions/workflows/main.yml/badge.svg)](https://github.com/magiskaa/teka3003-miniprojekti/actions/workflows/main.yml)
 
 ## Sisältö
